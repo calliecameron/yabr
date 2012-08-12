@@ -21,10 +21,15 @@
 #include "sysfuncs.h"
 
 
-DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint)
+DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint)
 {
 #ifdef Q_WS_WIN
     QString settingsDirPrefix = qApp->applicationDirPath() + "/";
+#endif
+#ifdef Q_WS_X11
+    QString settingsDirPrefix = QDir::homePath() + "/.randomBackground/";
+    if (!QDir().mkpath(settingsDirPrefix))
+        QMessageBox::warning(0, "Desktop Background Randomiser", "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");
 #endif
 
     m_Lib = RandomBackgroundLib::init(
@@ -250,8 +255,9 @@ void DlgConfig::setLblChangeInText()
 
 void DlgConfig::curBackClicked(QString link)
 {
-	if (!sys::shellExecute(link))
-		QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + sys::getErrMessage() + ").");
+    QString err;
+    if (!sys::shellExecute(link, err))
+        QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + err + ").");
 }
 
 void DlgConfig::curBackMenu(QPoint pos)
@@ -265,14 +271,16 @@ void DlgConfig::curBackMenu(QPoint pos)
 
 void DlgConfig::openCurBack()
 {
-	if (!sys::shellExecute(m_Lib->getBackground()))
-		QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + sys::getErrMessage() + ").");
+    QString err;
+    if (!sys::shellExecute(m_Lib->getBackground(), err))
+        QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + err + ").");
 }
 
 void DlgConfig::openCurBackFolder()
 {
-	if (!sys::shellExecute(QFileInfo(m_Lib->getBackground()).canonicalPath()))
-		QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + sys::getErrMessage() + ").");
+    QString err;
+    if (!sys::shellExecute(QFileInfo(m_Lib->getBackground()).canonicalPath(), err))
+        QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + err + ").");
 }
 
 

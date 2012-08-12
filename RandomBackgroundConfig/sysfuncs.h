@@ -5,8 +5,7 @@ class QString;
 
 namespace sys
 {
-	bool shellExecute(QString path, QString parameters=QString(), QString workingpath=QString(), QString verb=QString());
-	QString getErrMessage();
+    bool shellExecute(QString path, QString& err);
     bool getRunAtStartup();
     void setRunAtStartup(bool b);
 }

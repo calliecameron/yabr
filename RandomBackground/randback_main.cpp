@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QDir>
 #include <QMessageBox>
 #include <RandomBackgroundLib.h>
 
@@ -13,6 +14,14 @@ int main(int argc, char** argv)
 
 #ifdef Q_WS_WIN
     QString settingsDirPrefix = qApp->applicationDirPath() + "/";
+#endif
+#ifdef Q_WS_X11
+    QString settingsDirPrefix = QDir::homePath() + "/.randomBackground/";
+    if (!QDir().mkpath(settingsDirPrefix))
+    {
+        QMessageBox::critical(0, "Desktop Background Randomiser", "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");
+        return 1;
+    }
 #endif
 
     RandomBackgroundLib* lib = RandomBackgroundLib::init(

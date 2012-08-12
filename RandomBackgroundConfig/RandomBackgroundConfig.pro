@@ -6,10 +6,20 @@ INCLUDEPATH += $$quote(../RandomBackgroundLib)
 
 
 CONFIG(debug, debug|release) {
-    LIBS += $$quote(../RandomBackgroundLib/debug/libRandomBackgroundLibD.a)
+    win32 {
+        LIBS += $$quote(../RandomBackgroundLib/debug/libRandomBackgroundLibD.a)
+    }
+    unix {
+        LIBS += $$quote(../RandomBackgroundLib/libRandomBackgroundLibD.a)
+    }
 }
 CONFIG(release, debug|release) {
-    LIBS += $$quote(../RandomBackgroundLib/release/libRandomBackgroundLib.a)
+    win32 {
+        LIBS += $$quote(../RandomBackgroundLib/release/libRandomBackgroundLib.a)
+    }
+    unix {
+        LIBS += $$quote(../RandomBackgroundLib/libRandomBackgroundLib.a)
+    }
 }
 
 win32:RC_FILE = RandomBackgroundConfig_Resource.rc

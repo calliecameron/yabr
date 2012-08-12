@@ -172,12 +172,14 @@ void DlgRecent::contextMenu(QPoint pos)
 
 void DlgRecent::openFile()
 {
-	if (m_Sender == 0 || !sys::shellExecute(m_Sender->toolTip()))
-		QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + sys::getErrMessage() + ").");
+    QString err;
+    if (m_Sender == 0 || !sys::shellExecute(m_Sender->toolTip(), err))
+        QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + err + ").");
 }
 
 void DlgRecent::openFolder()
 {
-	if (m_Sender == 0 || !sys::shellExecute(QFileInfo(m_Sender->toolTip()).canonicalPath()))
-		QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + sys::getErrMessage() + ").");
+    QString err;
+    if (m_Sender == 0 || !sys::shellExecute(QFileInfo(m_Sender->toolTip()).canonicalPath(), err))
+        QMessageBox::warning(0, qApp->applicationName(), "Could not open the specified path (system message: " + err + ").");
 }
