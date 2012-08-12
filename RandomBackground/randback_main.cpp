@@ -3,12 +3,15 @@
 #include <RandomBackgroundLib.h>
 
 
+
 void warnCallback(QString str);
 bool choiceCallback(QString str);
 
 int main(int argc, char** argv)
 {
 	QApplication app(argc, argv);
+
+#ifdef Q_WS_WIN
 	RandomBackgroundLib* lib = RandomBackgroundLib::init(
 			qApp->applicationDirPath() + "/Background.ini",
 			qApp->applicationDirPath() + "/Folders.txt",
@@ -20,6 +23,7 @@ int main(int argc, char** argv)
 			qApp->applicationDirPath() + "/RandomBackground.log",
 			&warnCallback,
 			&choiceCallback);
+#endif
 
 	// Check command line - if the first parameter is -o (for 'override') change image randomly regardless
 	// of ChangeIn, or if it is a valid filename, set background to that image

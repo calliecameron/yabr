@@ -2,7 +2,7 @@
 #include "RandBackImpl.h"
 
 
-RandomBackgroundLib* RandomBackgroundLib::s_Instance = 0;
+RandomBackgroundLib* RandomBackgroundLib::s_Instance = NULL;
 
 
 RandomBackgroundLib* RandomBackgroundLib::init(QString settings, QString folders, QString excluded, QString blacklist, QString recentImages, QString resizeFile, QString thumbnailPath, QString logFile, WarnFunc warnFunc, ChoiceFunc choiceFunc)

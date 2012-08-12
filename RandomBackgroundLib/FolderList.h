@@ -3,10 +3,8 @@
 
 #include <QStringList>
 
-#include "RandomBackgroundLib_global.h"
 
-
-class RANDOMBACKGROUNDLIBSHARED_EXPORT FolderList
+class FolderList
 {
 public:
 

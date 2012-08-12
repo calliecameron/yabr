@@ -4,9 +4,11 @@
 #include <winver.h>
 #endif
 
+#include "../Version.h"
+
 VS_VERSION_INFO VERSIONINFO
-    FILEVERSION 2,0,0,0
-    PRODUCTVERSION 2,0,0,0
+    FILEVERSION WIN_RC_APP_VER
+    PRODUCTVERSION WIN_RC_APP_VER
     FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
     FILEFLAGS VS_FF_DEBUG
@@ -21,17 +23,17 @@ VS_VERSION_INFO VERSIONINFO
         BEGIN
             BLOCK "080904b0"
             BEGIN
-                VALUE "Comments", "Created By Callum J. Cameron 19/08/2011"
+                VALUE "Comments", "Created By Callum J. Cameron " WIN_RC_APP_DATE
                 VALUE "CompanyName", "Callum J. Cameron"
                 VALUE "FileDescription", "Desktop Background Randomiser Configuration"
-                VALUE "FileVersion", "2.0.0.0"
+                VALUE "FileVersion", DEFAULT_APP_VER
                 VALUE "InternalName", "Desktop Background Randomiser Configuration"
-                VALUE "LegalCopyright", "Copyright © 2011 Callum J. Cameron"
+                VALUE "LegalCopyright", "Copyright © Callum J. Cameron " WIN_RC_APP_YEAR
                 VALUE "LegalTrademarks", ""
                 VALUE "OriginalFilename", "RandomBackgroundConfig.exe"
                 VALUE "PrivateBuild", ""
                 VALUE "ProductName", "Desktop Background Randomiser"
-                VALUE "ProductVersion", "2.0.0.0"
+                VALUE "ProductVersion", DEFAULT_APP_VER
                 VALUE "SpecialBuild", ""
             END
         END

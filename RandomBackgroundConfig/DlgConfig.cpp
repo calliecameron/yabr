@@ -9,7 +9,6 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QRadioButton>
-#include <QSettings>
 #include <QSpinBox>
 #include <QVBoxLayout>
 #include <RandomBackgroundLib.h>
@@ -22,19 +21,22 @@
 #include "sysfuncs.h"
 
 
-DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint),
-	m_Lib(RandomBackgroundLib::init(
-			qApp->applicationDirPath() + "/Background.ini",
-			qApp->applicationDirPath() + "/Folders.txt",
-			qApp->applicationDirPath() + "/Excluded.txt",
-			qApp->applicationDirPath() + "/Blacklist.txt",
-			qApp->applicationDirPath() + "/RecentImages.txt",
-			qApp->applicationDirPath() + "/BackgroundResized.bmp",
-			qApp->applicationDirPath(),
-			qApp->applicationDirPath() + "/RandomBackground.log",
-			&warnCallback,
-			&choiceCallback))
+DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint)
 {
+#ifdef Q_WS_WIN
+    m_Lib = RandomBackgroundLib::init(
+                qApp->applicationDirPath() + "/Background.ini",
+                qApp->applicationDirPath() + "/Folders.txt",
+                qApp->applicationDirPath() + "/Excluded.txt",
+                qApp->applicationDirPath() + "/Blacklist.txt",
+                qApp->applicationDirPath() + "/RecentImages.txt",
+                qApp->applicationDirPath() + "/BackgroundResized.bmp",
+                qApp->applicationDirPath(),
+                qApp->applicationDirPath() + "/RandomBackground.log",
+                &warnCallback,
+                &choiceCallback);
+#endif
+
 	qApp->setApplicationName("Desktop Background Randomiser");
 	setWindowTitle("Desktop Background Randomiser Configuration");
 
@@ -207,8 +209,8 @@ DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint | Qt
 
 	// Bottom section; enabled checkbox and close button
 	chkEnabled = new QCheckBox("Enable background changing on startup", this);
-	chkEnabled->setChecked(getRegEnabled());
-	connect(chkEnabled, SIGNAL(toggled(bool)), this, SLOT(setRegEnabled(bool)));
+    chkEnabled->setChecked(sys::getRunAtStartup());
+    connect(chkEnabled, SIGNAL(toggled(bool)), this, SLOT(setRunAtStartup(bool)));
 
 	layMain->addWidget(chkEnabled);
 
@@ -419,47 +421,10 @@ void DlgConfig::styleChanged(bool checked)
 }
 
 
-// Return the state (checked or unchecked) of the checkbox based on whether or not the program is set to run at startup in the registry
-bool DlgConfig::getRegEnabled()
+void DlgConfig::setRunAtStartup(bool b)
 {
-	QSettings reg("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
-
-	if (reg.contains("RandomBackground"))
-	{
-		QString temp = reg.value("RandomBackground").toString();
-
-		if (QDir::fromNativeSeparators(temp).compare(qApp->applicationDirPath() + "/RandomBackground.exe", Qt::CaseInsensitive) != 0)
-		{
-			if (QMessageBox::warning(0, qApp->applicationName(), "A copy of Desktop Background Randomiser is enabled on this computer, but at a different location from this copy. Do you want to make this version run at startup?\n(If unsure, click No, but bear in mind that any changes made in this copy will not affect the enabled copy.)\nPath: " + temp, QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
-			{
-				setRegEnabled(true);
-				return true;
-			}
-			else
-				return false;
-		}
-		else
-			return true;
-	}
-	else
-		return false;
+    sys::setRunAtStartup(b);
 }
-
-
-// Write or delete the run key from the registry
-void DlgConfig::setRegEnabled(bool b)
-{
-	QSettings reg("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
-
-	if (b)
-		reg.setValue("RandomBackground", QDir::toNativeSeparators(qApp->applicationDirPath() + "/RandomBackground.exe"));
-	else
-	{
-		if (reg.contains("RandomBackground"))
-			reg.remove("RandomBackground");
-	}
-}
-
 
 void DlgConfig::warnCallback(QString str)
 {

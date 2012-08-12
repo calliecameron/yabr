@@ -6,11 +6,11 @@
 #include <QSettings>
 #include <QTextStream>
 #include <QTime>
-#include <windows.h>
 
-#include "RandBackImpl.h"
 #include "FolderListImpl.h"
 #include "Log.h"
+#include "lowlevel.h"
+#include "RandBackImpl.h"
 
 
 const QString RandBackImpl::KEY_CURR_BACK = "CurrentBackground";
@@ -282,7 +282,7 @@ QStringList RandBackImpl::getRecentImageThumbnails() const
 
 QString RandBackImpl::getBackground() const
 {
-	QString str = systemGetBackground();
+    QString str = lowlevel::getBackground();
 
 	if (str.compare(m_ResizeFile, Qt::CaseInsensitive) == 0)
 		return m_Settings->value(KEY_CURR_BACK).toString();
@@ -339,9 +339,9 @@ void RandBackImpl::loadSettingsFile(QString filename)
 {
 	m_Settings = new QSettings(filename, QSettings::IniFormat);
 
-	// CurrentBackground - string, default to systemGetBackground()
+    // CurrentBackground - string, default to lowlevel::getBackground()
 	if (!m_Settings->contains(KEY_CURR_BACK) || m_Settings->value(KEY_CURR_BACK).toString().trimmed().isEmpty())
-		m_Settings->setValue(KEY_CURR_BACK, systemGetBackground());
+        m_Settings->setValue(KEY_CURR_BACK, lowlevel::getBackground());
 	else
 		m_Settings->setValue(KEY_CURR_BACK, QDir::fromNativeSeparators(m_Settings->value(KEY_CURR_BACK).toString()));
 
@@ -554,7 +554,7 @@ RandomBackgroundLib::Result RandBackImpl::chooseFile()
 	int tempint;
 	randomise();
 
-	QString curfile = systemGetBackground();
+    QString curfile = lowlevel::getBackground();
 	if (curfile == m_ResizeFile)
 		curfile = m_Settings->value(KEY_CURR_BACK).toString();
 
@@ -653,7 +653,6 @@ void RandBackImpl::enumerateFiles(QString foldername, QStringList& filelist, con
 RandomBackgroundLib::Result RandBackImpl::processImage(QString filename)
 {
 	QString target = filename;
-	QSettings reg("HKEY_CURRENT_USER\\Control Panel\\Desktop", QSettings::NativeFormat);
 	QTime timer;
 	int processTime = 0;
 	int setTime = 0;
@@ -689,32 +688,12 @@ RandomBackgroundLib::Result RandBackImpl::processImage(QString filename)
 				target = m_ResizeFile;
 
 		}
+    }
 
-		reg.setValue("TileWallpaper", "0");
-		reg.setValue("WallpaperStyle", "0");
-	}
-	else if (mode == RandomBackgroundLib::CENTRE)
-	{
-		// Centre mode, full size
-		reg.setValue("TileWallpaper", "0");
-		reg.setValue("WallpaperStyle", "0");
-	}
-	else if (mode == RandomBackgroundLib::STRETCH)
-	{
-		// Stretch mode
-		reg.setValue("TileWallpaper", "0");
-		reg.setValue("WallpaperStyle", "2");
-	}
-	else if (mode == RandomBackgroundLib::TILE)
-	{
-		// Tile mode
-		reg.setValue("TileWallpaper", "1");
-		reg.setValue("WallpaperStyle", "0");
-	}
+    lowlevel::setResizeMode(mode);
 
 
-	// If on OS < Vista, convert to BMP anyway
-	if (QSysInfo::windowsVersion() < QSysInfo::WV_VISTA)
+    if (lowlevel::convertJpegsToBmp())
 	{
 		QString tempinfo = QFileInfo(target).suffix().toLower();
 
@@ -733,8 +712,8 @@ RandomBackgroundLib::Result RandBackImpl::processImage(QString filename)
 		processTime = timer.restart();
 
 	// Set background
-	if (!systemSetBackground(target))
-		return Result(RandomBackgroundLib::FAILURE, "Failed to set the desktop background (system message: " + systemGetErrorMsg() + ")");
+    if (!lowlevel::setBackground(target))
+        return Result(RandomBackgroundLib::FAILURE, "Failed to set the desktop background (system message: " + lowlevel::getErrorMsg() + ")");
 
 	if (diagnostics)
 	{
@@ -750,26 +729,6 @@ RandomBackgroundLib::Result RandBackImpl::processImage(QString filename)
 		return Result(RandomBackgroundLib::PARTIAL_SUCCESS, "Failed to add the image to the recent images list");
 }
 
-//QImage RandBackImpl::oldSmartResize(QImage image, int xres, int yres)
-//{
-//	if ((float)image.width()/(float)image.height() > 1.332f)
-//	{
-//		// Scale to width
-//		image = image.scaledToWidth(xres, Qt::SmoothTransformation);
-//
-//		// Vertical crop if necessary
-//		if (image.height() > yres)
-//			image = image.copy(0, (image.height()-yres)/2, xres, yres);
-//	}
-//	else
-//	{
-//		// Scale to height
-//		image = image.scaledToHeight(yres, Qt::SmoothTransformation);
-//	}
-//
-//	return image;
-//}
-
 QImage RandBackImpl::smartResize(QImage image, int xres, int yres)
 {
 	int width = image.width();
@@ -784,7 +743,7 @@ QImage RandBackImpl::smartResize(QImage image, int xres, int yres)
 			image = image.copy((image.width() - xres) / 2, 0, xres, yres);
 	}
 	else
-	{
+    {
 		// Scale to width
 		image = image.scaledToWidth(xres, Qt::SmoothTransformation);
 
@@ -942,31 +901,6 @@ bool RandBackImpl::addToRecentList(QString filename)
 }
 
 
-QString RandBackImpl::systemGetBackground()
-{
-	QString str;
-	str.fill(' ', MAX_PATH);
-
-	if (!SystemParametersInfo(SPI_GETDESKWALLPAPER, MAX_PATH, (WCHAR*)str.constData(), 0))
-		return QString();
-	else
-		return QDir::fromNativeSeparators(str.left(str.indexOf(QChar(0))));
-}
-
-bool RandBackImpl::systemSetBackground(QString filename)
-{
-	return SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, (WCHAR*)QDir::toNativeSeparators(filename).constData(), SPIF_UPDATEINIFILE);
-}
-
-QString RandBackImpl::systemGetErrorMsg()
-{
-	QString str;
-	str.fill(' ', 1000);
-
-	FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0, GetLastError(), 0, (WCHAR*)str.constData(), 1000, 0);
-
-	return str.left(str.indexOf(QChar(0))).trimmed();
-}
 
 // Initialise the random number generator with the current time
 void RandBackImpl::randomise()

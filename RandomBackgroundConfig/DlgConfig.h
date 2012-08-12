@@ -23,7 +23,7 @@ public:
 	virtual ~DlgConfig();
 
 private slots:
-	void setRegEnabled(bool b);
+    void setRunAtStartup(bool b);
 	void curBackClicked(QString link);
 	void curBackMenu(QPoint pos);
 	void openCurBack();
@@ -48,7 +48,6 @@ private:
 	// Private functions
 	void setLblCurBackText(QString background);
 	void setLblChangeInText();
-	bool getRegEnabled();
 
 	static void warnCallback(QString str);
 	static bool choiceCallback(QString str);

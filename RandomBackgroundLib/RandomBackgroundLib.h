@@ -4,15 +4,13 @@
 #include <QStringList>
 #include <QPixmap>
 
-
-#include "RandomBackgroundLib_global.h"
-
 class FolderList;
 
 typedef void (*WarnFunc)(QString);
 typedef bool (*ChoiceFunc)(QString);
 
-class RANDOMBACKGROUNDLIBSHARED_EXPORT RandomBackgroundLib
+
+class RandomBackgroundLib
 {
 public:
 

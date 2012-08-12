@@ -87,16 +87,12 @@ private:
 	bool removeNonexistentItems(QStringList& uselist, QStringList& persistlist, QString itemtype, QString listname, bool isDirList);
 	void enumerateFiles(QString foldername, QStringList& filelist, const QStringList& excludelist, const QStringList& blacklist);
 	Result processImage(QString filename);
-	//QImage oldSmartResize(QImage image, int xres, int yres);
-	QImage smartResize(QImage image, int xres, int yres);
+    QImage smartResize(QImage image, int xres, int yres);
 
 	static bool loadRecentList(QString filename, QStringList& images, QList<int>& thumbnails, int maxlen);
 	static bool saveRecentList(QString filename, QStringList images, QList<int> thumbnails);
 	bool addToRecentList(QString filename);
 
-	static QString systemGetBackground();
-	static bool systemSetBackground(QString filename);
-	static QString systemGetErrorMsg();
 	static void randomise();
 	static int randint(int start, int end);
 
