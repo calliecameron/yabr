@@ -24,18 +24,21 @@
 DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint)
 {
 #ifdef Q_WS_WIN
+    QString settingsDirPrefix = qApp->applicationDirPath() + "/";
+#endif
+
     m_Lib = RandomBackgroundLib::init(
-                qApp->applicationDirPath() + "/Background.ini",
-                qApp->applicationDirPath() + "/Folders.txt",
-                qApp->applicationDirPath() + "/Excluded.txt",
-                qApp->applicationDirPath() + "/Blacklist.txt",
-                qApp->applicationDirPath() + "/RecentImages.txt",
-                qApp->applicationDirPath() + "/BackgroundResized.bmp",
-                qApp->applicationDirPath(),
-                qApp->applicationDirPath() + "/RandomBackground.log",
+                settingsDirPrefix + "Background.ini",
+                settingsDirPrefix + "Folders.txt",
+                settingsDirPrefix + "Excluded.txt",
+                settingsDirPrefix + "Blacklist.txt",
+                settingsDirPrefix + "RecentImages.txt",
+                settingsDirPrefix + "BackgroundResized.bmp",
+                settingsDirPrefix,
+                settingsDirPrefix + "RandomBackground.log",
                 &warnCallback,
                 &choiceCallback);
-#endif
+
 
 	qApp->setApplicationName("Desktop Background Randomiser");
 	setWindowTitle("Desktop Background Randomiser Configuration");

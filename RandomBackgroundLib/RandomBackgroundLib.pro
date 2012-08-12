@@ -22,6 +22,9 @@ SOURCES += RandomBackgroundLib.cpp \
 win32 {
     SOURCES += lowlevel_win32.cpp
 }
+unix {
+    SOURCES += lowlevel_linux.cpp
+}
 
 HEADERS += RandomBackgroundLib.h\
     RandBackImpl.h \

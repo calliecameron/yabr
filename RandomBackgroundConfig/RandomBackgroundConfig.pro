@@ -31,6 +31,9 @@ SOURCES += \
 win32 {
     SOURCES += sysfuncs_win32.cpp
 }
+unix {
+    SOURCES += sysfuncs_linux.cpp
+}
 
 RESOURCES += \
     RandomBackgroundConfig.qrc
