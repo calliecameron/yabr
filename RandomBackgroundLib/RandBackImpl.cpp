@@ -712,8 +712,9 @@ RandomBackgroundLib::Result RandBackImpl::processImage(QString filename)
 		processTime = timer.restart();
 
 	// Set background
-    if (!lowlevel::setBackground(target))
-        return Result(RandomBackgroundLib::FAILURE, "Failed to set the desktop background (system message: " + lowlevel::getErrorMsg() + ")");
+    QString err;
+    if (!lowlevel::setBackground(target, err))
+        return Result(RandomBackgroundLib::FAILURE, "Failed to set the desktop background (system message: " + err + ")");
 
 	if (diagnostics)
 	{

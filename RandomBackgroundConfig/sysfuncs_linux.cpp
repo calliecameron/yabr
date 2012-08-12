@@ -1,4 +1,5 @@
 #include <QDesktopServices>
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QString>
@@ -9,7 +10,7 @@
 
 bool sys::shellExecute(QString path, QString& err)
 {
-    path = QFileInfo(path).absoluteFilePath();
+    path = QFileInfo(QDir::toNativeSeparators(path)).absoluteFilePath();
     if (!QFile::exists(path))
     {
         err = "The specified file does not exist.";
@@ -28,4 +29,3 @@ void sys::setRunAtStartup(bool b)
 {
 
 }
-

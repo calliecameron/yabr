@@ -9,6 +9,16 @@
 static const char* KEY_TILE_WALLPAPER = "TileWallpaper";
 static const char* KEY_WALLPAPER_STYLE = "WallpaperStyle";
 
+static QString getErrorMsg()
+{
+    QString str;
+    str.fill(' ', 1000);
+
+    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0, GetLastError(), 0, (WCHAR*)str.constData(), 1000, 0);
+
+    return str.left(str.indexOf(QChar(0))).trimmed();
+}
+
 QString lowlevel::getBackground()
 {
     QString str;
@@ -20,9 +30,14 @@ QString lowlevel::getBackground()
         return QDir::fromNativeSeparators(str.left(str.indexOf(QChar(0))));
 }
 
-bool lowlevel::setBackground(QString filename)
+bool lowlevel::setBackground(QString filename, QString& err)
 {
-    return SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, (WCHAR*)QDir::toNativeSeparators(filename).constData(), SPIF_UPDATEINIFILE);
+    bool success = SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, (WCHAR*)QDir::toNativeSeparators(filename).constData(), SPIF_UPDATEINIFILE);
+
+    if (!success)
+        err = getErrorMsg();
+
+    return success;
 }
 
 void lowlevel::setResizeMode(RandomBackgroundLib::ResizeMode mode)
@@ -50,14 +65,3 @@ bool lowlevel::convertJpegsToBmp()
 {
     return QSysInfo::windowsVersion() < QSysInfo::WV_VISTA;
 }
-
-QString lowlevel::getErrorMsg()
-{
-    QString str;
-    str.fill(' ', 1000);
-
-    FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, 0, GetLastError(), 0, (WCHAR*)str.constData(), 1000, 0);
-
-    return str.left(str.indexOf(QChar(0))).trimmed();
-}
-

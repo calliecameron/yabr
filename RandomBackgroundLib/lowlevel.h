@@ -8,10 +8,9 @@ class QString;
 namespace lowlevel
 {
     QString getBackground();
-    bool setBackground(QString filename);
+    bool setBackground(QString filename, QString& err);
     void setResizeMode(RandomBackgroundLib::ResizeMode mode);
     bool convertJpegsToBmp();
-    QString getErrorMsg();
 }
 
 #endif // LOWLEVEL_H
