@@ -6,21 +6,22 @@
 
 CONFIG(debug, debug|release) {
     TARGET = RandomBackgroundLibD
-    win32 {
-        QMAKE_POST_LINK = copy /Y debug\\*.dll ..\\RandomBackground\\debug &
-        QMAKE_POST_LINK += copy /Y debug\\*.dll ..\\RandomBackgroundConfig\\debug
-    }
+#    win32 {
+#        QMAKE_POST_LINK = copy /Y debug\\*.dll ..\\RandomBackground\\debug &
+#        QMAKE_POST_LINK += copy /Y debug\\*.dll ..\\RandomBackgroundConfig\\debug
+#    }
 }
 CONFIG(release, debug|release) {
     TARGET = RandomBackgroundLib
-    win32 {
-        QMAKE_POST_LINK = copy /Y release\\*.dll ..\\RandomBackground\\release &
-        QMAKE_POST_LINK += copy /Y release\\*.dll ..\\RandomBackgroundConfig\\release
-    }
+#    win32 {
+#        QMAKE_POST_LINK = copy /Y release\\*.dll ..\\RandomBackground\\release &
+#        QMAKE_POST_LINK += copy /Y release\\*.dll ..\\RandomBackgroundConfig\\release
+#    }
 }
 
 TEMPLATE = lib
-win32:RC_FILE = RandomBackgroundLib_Resource.rc
+CONFIG += staticlib
+#win32:RC_FILE = RandomBackgroundLib_Resource.rc
 
 DEFINES += RANDOMBACKGROUNDLIB_LIBRARY
 
