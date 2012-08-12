@@ -6,10 +6,10 @@ INCLUDEPATH += $$quote(../RandomBackgroundLib)
 
 
 CONFIG(debug, debug|release) {
-	LIBS += $$quote(../RandomBackgroundLib/debug/libRandomBackgroundLibD.a)
+    LIBS += $$quote(../RandomBackgroundLib/debug/libRandomBackgroundLibD.a)
 }
 CONFIG(release, debug|release) {
-	LIBS += $$quote(../RandomBackgroundLib/release/libRandomBackgroundLib.a)
+    LIBS += $$quote(../RandomBackgroundLib/release/libRandomBackgroundLib.a)
 }
 
 win32:RC_FILE = RandomBackgroundConfig_Resource.rc
@@ -24,10 +24,13 @@ HEADERS += \
 SOURCES += \
     randbackconfig_main.cpp \
     DlgConfig.cpp \
-    sysfuncs.cpp \
     DlgList.cpp \
     DlgRecent.cpp \
     DlgProfile.cpp
+
+win32 {
+    SOURCES += sysfuncs_win32.cpp
+}
 
 RESOURCES += \
     RandomBackgroundConfig.qrc

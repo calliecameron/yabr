@@ -5,14 +5,18 @@
 #-------------------------------------------------
 
 CONFIG(debug, debug|release) {
-	TARGET = RandomBackgroundLibD
-	QMAKE_POST_LINK = copy /Y debug\\*.dll ..\\RandomBackground\\debug &
-	QMAKE_POST_LINK += copy /Y debug\\*.dll ..\\RandomBackgroundConfig\\debug
+    TARGET = RandomBackgroundLibD
+    win32 {
+        QMAKE_POST_LINK = copy /Y debug\\*.dll ..\\RandomBackground\\debug &
+        QMAKE_POST_LINK += copy /Y debug\\*.dll ..\\RandomBackgroundConfig\\debug
+    }
 }
 CONFIG(release, debug|release) {
-	TARGET = RandomBackgroundLib
-	QMAKE_POST_LINK = copy /Y release\\*.dll ..\\RandomBackground\\release &
-	QMAKE_POST_LINK += copy /Y release\\*.dll ..\\RandomBackgroundConfig\\release
+    TARGET = RandomBackgroundLib
+    win32 {
+        QMAKE_POST_LINK = copy /Y release\\*.dll ..\\RandomBackground\\release &
+        QMAKE_POST_LINK += copy /Y release\\*.dll ..\\RandomBackgroundConfig\\release
+    }
 }
 
 TEMPLATE = lib
