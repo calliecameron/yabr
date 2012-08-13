@@ -12,7 +12,7 @@ static const QString STARTUP_DIR = ".config/autostart";
 
 bool sys::shellExecute(QString path, QString& err)
 {
-    path = QFileInfo(QDir::toNativeSeparators(path)).absoluteFilePath();
+    path = QFileInfo(QDir::fromNativeSeparators(path)).absoluteFilePath();
     if (!QFile::exists(path))
     {
         err = "The specified file does not exist.";

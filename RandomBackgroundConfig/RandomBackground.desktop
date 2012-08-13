@@ -1,8 +1,11 @@
-#!/usr/bin/env xdg-open
 
 [Desktop Entry]
-Version=1.0
 Type=Application
-Terminal=false
 Exec=RandomBackground
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=RandomBackground
 Name=RandomBackground
+Comment[en_GB]=
+Comment=
