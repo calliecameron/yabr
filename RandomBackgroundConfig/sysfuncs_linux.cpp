@@ -1,7 +1,9 @@
+#include <QApplication>
 #include <QDesktopServices>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QMessageBox>
 #include <QString>
 #include <QUrl>
 
@@ -9,6 +11,10 @@
 
 static const QString STARTUP_FILE = "RandomBackground.desktop";
 static const QString STARTUP_DIR = ".config/autostart";
+static const char* STARTUP_SCRIPT_BEGIN = "\n[Desktop Entry]\nType=Application\nExec=";
+static const char* STARTUP_SCRIPT_END = "\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\n"
+        "Name[en_GB]=RandomBackground\nName=RandomBackground\nComment[en_GB]=\nComment=";
+
 
 bool sys::shellExecute(QString path, QString& err)
 {
@@ -34,7 +40,21 @@ void sys::setRunAtStartup(bool b)
     if (b)
     {
         if (!QFile::exists(path))
-            QFile::copy(":/" + STARTUP_FILE, path);
+        {
+            QFile f(path);
+            if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
+            {
+                QMessageBox::warning(0, "Desktop Background Randomiser", "Unable to open startup file for writing.");
+                return;
+            }
+
+            f.write(STARTUP_SCRIPT_BEGIN);
+            f.write(qPrintable(QApplication::applicationDirPath() + "/RandomBackground"));
+            f.write(STARTUP_SCRIPT_END);
+
+            f.close();
+        }
+//            QFile::copy(":/" + STARTUP_FILE, path);
     }
     else
     {

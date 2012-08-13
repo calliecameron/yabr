@@ -23,13 +23,15 @@
 
 DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint)
 {
+    QApplication::setApplicationName("Desktop Background Randomiser");
+
 #ifdef Q_WS_WIN
-    QString settingsDirPrefix = qApp->applicationDirPath() + "/";
+    QString settingsDirPrefix = QApplication::applicationDirPath() + "/";
 #endif
 #ifdef Q_WS_X11
     QString settingsDirPrefix = QDir::homePath() + "/.randomBackground/";
     if (!QDir().mkpath(settingsDirPrefix))
-        QMessageBox::warning(0, "Desktop Background Randomiser", "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");
+        QMessageBox::warning(0, QApplication::applicationName(), "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");
 #endif
 
     m_Lib = RandomBackgroundLib::init(
@@ -45,7 +47,6 @@ DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::Window | Qt::WindowT
                 &choiceCallback);
 
 
-	qApp->setApplicationName("Desktop Background Randomiser");
 	setWindowTitle("Desktop Background Randomiser Configuration");
 
 	layMain = new QVBoxLayout;

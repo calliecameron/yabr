@@ -11,15 +11,16 @@ bool choiceCallback(QString str);
 int main(int argc, char** argv)
 {
 	QApplication app(argc, argv);
+    QApplication::setApplicationName("Desktop Background Randomiser");
 
 #ifdef Q_WS_WIN
-    QString settingsDirPrefix = qApp->applicationDirPath() + "/";
+    QString settingsDirPrefix = QApplication::applicationDirPath() + "/";
 #endif
 #ifdef Q_WS_X11
     QString settingsDirPrefix = QDir::homePath() + "/.randomBackground/";
     if (!QDir().mkpath(settingsDirPrefix))
     {
-        QMessageBox::critical(0, "Desktop Background Randomiser", "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");
+        QMessageBox::critical(0, QApplication::applicationName(), "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");
         return 1;
     }
 #endif
@@ -54,9 +55,9 @@ int main(int argc, char** argv)
 		result = lib->changeBackground();
 
 	if (result.code == RandomBackgroundLib::FAILURE)
-		QMessageBox::critical(0, "Desktop Background Randomiser", "Unable to change the desktop background. " + result.message + ".");
+        QMessageBox::critical(0, QApplication::applicationName(), "Unable to change the desktop background. " + result.message + ".");
 	else if (result.code == RandomBackgroundLib::PARTIAL_SUCCESS)
-		QMessageBox::warning(0, "Desktop Background Randomiser", result.message);
+        QMessageBox::warning(0, QApplication::applicationName(), result.message);
 
 	delete lib;
 
@@ -65,10 +66,10 @@ int main(int argc, char** argv)
 
 void warnCallback(QString str)
 {
-	QMessageBox::warning(0, "Desktop Background Randomiser", str);
+    QMessageBox::warning(0, QApplication::applicationName(), str);
 }
 
 bool choiceCallback(QString str)
 {
-	return QMessageBox::warning(0, "Desktop Background Randomiser", str, QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes;
+    return QMessageBox::warning(0, QApplication::applicationName(), str, QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes;
 }
