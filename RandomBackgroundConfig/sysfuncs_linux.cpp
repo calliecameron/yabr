@@ -54,7 +54,6 @@ void sys::setRunAtStartup(bool b)
 
             f.close();
         }
-//            QFile::copy(":/" + STARTUP_FILE, path);
     }
     else
     {

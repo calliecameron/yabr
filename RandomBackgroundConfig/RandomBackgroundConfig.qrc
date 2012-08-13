@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
         <file>WarningDull.png</file>
-        <file>RandomBackground.desktop</file>
     </qresource>
 </RCC>

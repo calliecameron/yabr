@@ -1,1 +1,8 @@
+Files that must be modified to change the version number:
+
+Version.h
+
+
+
+
 If it fails to build on Windows, it is because the build directories have paths that are too long. Change them and try again.
