@@ -12,25 +12,25 @@ class Log
 {
 public:
 
-	static Log& instance();
-	static void setFilename(QString filenmame);
+    static Log& instance();
+    static void setFilename(QString filenmame);
 
-	Log& operator<<(const QString& s);
-	Log& operator<<(int i);
+    Log& operator<<(const QString& s);
+    Log& operator<<(int i);
 
-	Log& timestamp();
-	Log& flush();
+    Log& timestamp();
+    Log& flush();
 
-	~Log();
+    ~Log();
 
 private:
 
-	Log(QString filename);
+    Log(QString filename);
 
-	static QString s_Filename;
+    static QString s_Filename;
 
-	QFile* m_File;
-	QTextStream m_Stream;
+    QFile* m_File;
+    QTextStream m_Stream;
 
 };
 

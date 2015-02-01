@@ -1,1 +1,7 @@
-DesktopBackground2.pro.user
+*.pro.user
+*~
+*.o
+Makefile
+*.a
+qrc_*.cpp
+moc_*.cpp

@@ -15,41 +15,41 @@ class RandomBackgroundLib;
 
 class DlgRecent : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	DlgRecent(RandomBackgroundLib* lib, QWidget* parent=0);
-	virtual ~DlgRecent();
+    DlgRecent(RandomBackgroundLib* lib, QWidget* parent=0);
+    virtual ~DlgRecent();
 
 
 private slots:
 
-	void changeNow();
-	void buttonClicked(QAbstractButton* button);
-	void contextMenu(QPoint pos);
-	void openFile();
-	void openFolder();
+    void changeNow();
+    void buttonClicked(QAbstractButton* button);
+    void contextMenu(QPoint pos);
+    void openFile();
+    void openFolder();
 
 private:
 
-	void populateGrid();
-	QPushButton* createButton(QString image, QString thumbnail, int w, int h);
-	QPushButton* createDisabledButton(int w, int h);
+    void populateGrid();
+    QPushButton* createButton(QString image, QString thumbnail, int w, int h);
+    QPushButton* createDisabledButton(int w, int h);
 
-	QVBoxLayout* layMain;
+    QVBoxLayout* layMain;
 
-	QPushButton* cmdChangeNow;
+    QPushButton* cmdChangeNow;
 
-	QScrollArea* scrGrid;
-	QWidget* wdgGrid;
-	QGridLayout* layGrid;
-	QList<QPushButton*> m_Buttons;
-	QButtonGroup* grpGrid;
+    QScrollArea* scrGrid;
+    QWidget* wdgGrid;
+    QGridLayout* layGrid;
+    QList<QPushButton*> m_Buttons;
+    QButtonGroup* grpGrid;
 
-	QDialogButtonBox* dbbMain;
+    QDialogButtonBox* dbbMain;
 
-	RandomBackgroundLib* m_Lib;
-	QPushButton* m_Sender;
+    RandomBackgroundLib* m_Lib;
+    QPushButton* m_Sender;
 
 };
 

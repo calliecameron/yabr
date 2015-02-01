@@ -12,39 +12,39 @@ class QVBoxLayout;
 
 class DlgList : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	DlgList(QStringList list, QString heading, QString itemType, bool isDirList, QWidget* parent=0);
-	virtual ~DlgList();
+    DlgList(QStringList list, QString heading, QString itemType, bool isDirList, QWidget* parent=0);
+    virtual ~DlgList();
 
-	QStringList getList() const;
+    QStringList getList() const;
 
 
 private slots:
 
-	void addItem();
-	void removeItem();
+    void addItem();
+    void removeItem();
 
 private:
 
-	void populateList();
+    void populateList();
 
-	QLabel* lblHeading;
-	QListWidget* lstItems;
-	QPushButton* cmdAdd;
-	QPushButton* cmdRemove;
+    QLabel* lblHeading;
+    QListWidget* lstItems;
+    QPushButton* cmdAdd;
+    QPushButton* cmdRemove;
 
-	QVBoxLayout* layMain;
-	QHBoxLayout* layItems1;
-	QVBoxLayout* layItems2;
+    QVBoxLayout* layMain;
+    QHBoxLayout* layItems1;
+    QVBoxLayout* layItems2;
 
-	QDialogButtonBox* dbbMain;
+    QDialogButtonBox* dbbMain;
 
 
-	QStringList m_List;
-	QString m_ItemType;
-	bool m_IsDirList;
+    QStringList m_List;
+    QString m_ItemType;
+    bool m_IsDirList;
 
 };
 

@@ -10,7 +10,7 @@ bool choiceCallback(QString str);
 
 int main(int argc, char** argv)
 {
-	QApplication app(argc, argv);
+    QApplication app(argc, argv);
     QApplication::setApplicationName("Desktop Background Randomiser");
 
 #ifdef Q_OS_WIN
@@ -38,30 +38,30 @@ int main(int argc, char** argv)
             &choiceCallback);
 
 
-	// Check command line - if the first parameter is -o (for 'override') change image randomly regardless
-	// of ChangeIn, or if it is a valid filename, set background to that image
-	RandomBackgroundLib::Result result(RandomBackgroundLib::SUCCESS);
+    // Check command line - if the first parameter is -o (for 'override') change image randomly regardless
+    // of ChangeIn, or if it is a valid filename, set background to that image
+    RandomBackgroundLib::Result result(RandomBackgroundLib::SUCCESS);
 
-	if (argc > 1)
-	{
-		QString cmd(argv[1]);
+    if (argc > 1)
+    {
+        QString cmd(argv[1]);
 
-		if (cmd.toLower() == "-o")
-			result = lib->changeBackground(true);
-		else
-			result = lib->setBackground(cmd);
-	}
-	else
-		result = lib->changeBackground();
+        if (cmd.toLower() == "-o")
+            result = lib->changeBackground(true);
+        else
+            result = lib->setBackground(cmd);
+    }
+    else
+        result = lib->changeBackground();
 
-	if (result.code == RandomBackgroundLib::FAILURE)
+    if (result.code == RandomBackgroundLib::FAILURE)
         QMessageBox::critical(0, QApplication::applicationName(), "Unable to change the desktop background. " + result.message + ".");
-	else if (result.code == RandomBackgroundLib::PARTIAL_SUCCESS)
+    else if (result.code == RandomBackgroundLib::PARTIAL_SUCCESS)
         QMessageBox::warning(0, QApplication::applicationName(), result.message);
 
-	delete lib;
+    delete lib;
 
-	return 0;
+    return 0;
 }
 
 void warnCallback(QString str)

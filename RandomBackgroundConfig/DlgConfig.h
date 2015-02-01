@@ -16,96 +16,96 @@ class RandomBackgroundLib;
 
 class DlgConfig : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	DlgConfig(QWidget* parent=0);
-	virtual ~DlgConfig();
+    DlgConfig(QWidget* parent=0);
+    virtual ~DlgConfig();
 
 private slots:
     void setRunAtStartup(bool b);
-	void curBackClicked(QString link);
-	void curBackMenu(QPoint pos);
-	void openCurBack();
-	void openCurBackFolder();
-	void setChangeEvery(int i);
-	void changeNow();
-	void keepFor();
-	void setImage();
-	void addToBlacklist();
-	void setRecentStoreNum(int i);
-	void setRepeatLimit(int i);
-	void recentImages();
-	void manageFolders();
-	void manageExcluded();
-	void manageBlacklist();
-	void styleChanged(bool checked);
+    void curBackClicked(QString link);
+    void curBackMenu(QPoint pos);
+    void openCurBack();
+    void openCurBackFolder();
+    void setChangeEvery(int i);
+    void changeNow();
+    void keepFor();
+    void setImage();
+    void addToBlacklist();
+    void setRecentStoreNum(int i);
+    void setRepeatLimit(int i);
+    void recentImages();
+    void manageFolders();
+    void manageExcluded();
+    void manageBlacklist();
+    void styleChanged(bool checked);
 
-	
+
 
 private:
 
-	// Private functions
-	void setLblCurBackText(QString background);
-	void setLblChangeInText();
+    // Private functions
+    void setLblCurBackText(QString background);
+    void setLblChangeInText();
 
-	static void warnCallback(QString str);
-	static bool choiceCallback(QString str);
-
-
-	// GUI members
-	QVBoxLayout* layMain;
-
-	// Top section; information labels
-	QLabel* lblCurBack;
-	QLabel* lblChangeIn;
-
-	// Next section; timing controls
-	QGroupBox* fraTiming;
-	QLabel* lblTiming1;
-	QLabel* lblTiming2;
-	QPushButton* cmdChangeNow;
-	QPushButton* cmdKeepFor;
-	QSpinBox* spnChangeEvery;
-	QPushButton* cmdChooseImage;
-	QPushButton* cmdAddToBlacklist;
-	QSpinBox* spnRecentStore;
-	QSpinBox* spnRepeatLimit;
-	QPushButton* cmdRecent;
+    static void warnCallback(QString str);
+    static bool choiceCallback(QString str);
 
 
-	QVBoxLayout* layTiming1;
-	QHBoxLayout* layTiming2;
-	QHBoxLayout* layTiming3;
-	QHBoxLayout* layTiming4;
-	QHBoxLayout* layTiming5;
-	QHBoxLayout* layTiming6;
+    // GUI members
+    QVBoxLayout* layMain;
 
-	// Next section; folder lists
-	QGroupBox* fraFolders;
-	QHBoxLayout* layFolders;
-	QPushButton* cmdFolders;
-	QPushButton* cmdExcluded;
-	QPushButton* cmdBlacklist;
+    // Top section; information labels
+    QLabel* lblCurBack;
+    QLabel* lblChangeIn;
 
-
-	// Next section; resize style
-	QGroupBox* fraStyle;
-	QLabel* lblStyle;
-	QRadioButton* optSmart;
-	QRadioButton* optCentre;
-	QRadioButton* optStretch;
-	QRadioButton* optTile;
-
-	QVBoxLayout* layStyle1;
-	QHBoxLayout* layStyle2;
-
-	// Bottom section; enabled checkbox and close button
-	QCheckBox* chkEnabled;
-	QPushButton* cmdClose;
+    // Next section; timing controls
+    QGroupBox* fraTiming;
+    QLabel* lblTiming1;
+    QLabel* lblTiming2;
+    QPushButton* cmdChangeNow;
+    QPushButton* cmdKeepFor;
+    QSpinBox* spnChangeEvery;
+    QPushButton* cmdChooseImage;
+    QPushButton* cmdAddToBlacklist;
+    QSpinBox* spnRecentStore;
+    QSpinBox* spnRepeatLimit;
+    QPushButton* cmdRecent;
 
 
-	RandomBackgroundLib* m_Lib;
+    QVBoxLayout* layTiming1;
+    QHBoxLayout* layTiming2;
+    QHBoxLayout* layTiming3;
+    QHBoxLayout* layTiming4;
+    QHBoxLayout* layTiming5;
+    QHBoxLayout* layTiming6;
+
+    // Next section; folder lists
+    QGroupBox* fraFolders;
+    QHBoxLayout* layFolders;
+    QPushButton* cmdFolders;
+    QPushButton* cmdExcluded;
+    QPushButton* cmdBlacklist;
+
+
+    // Next section; resize style
+    QGroupBox* fraStyle;
+    QLabel* lblStyle;
+    QRadioButton* optSmart;
+    QRadioButton* optCentre;
+    QRadioButton* optStretch;
+    QRadioButton* optTile;
+
+    QVBoxLayout* layStyle1;
+    QHBoxLayout* layStyle2;
+
+    // Bottom section; enabled checkbox and close button
+    QCheckBox* chkEnabled;
+    QPushButton* cmdClose;
+
+
+    RandomBackgroundLib* m_Lib;
 
 
 };
