@@ -1,6 +1,6 @@
-
 TARGET = RandomBackground
 TEMPLATE = app
+QT += widgets
 
 INCLUDEPATH += $$quote(../RandomBackgroundLib)
 

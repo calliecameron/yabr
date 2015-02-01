@@ -25,10 +25,10 @@ DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::Window | Qt::WindowT
 {
     QApplication::setApplicationName("Desktop Background Randomiser");
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     QString settingsDirPrefix = QApplication::applicationDirPath() + "/";
 #endif
-#ifdef Q_WS_X11
+#ifdef Q_OS_LINUX
     QString settingsDirPrefix = QDir::homePath() + "/.randomBackground/";
     if (!QDir().mkpath(settingsDirPrefix))
         QMessageBox::warning(0, QApplication::applicationName(), "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");

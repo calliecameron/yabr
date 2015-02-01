@@ -13,10 +13,10 @@ int main(int argc, char** argv)
 	QApplication app(argc, argv);
     QApplication::setApplicationName("Desktop Background Randomiser");
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
     QString settingsDirPrefix = QApplication::applicationDirPath() + "/";
 #endif
-#ifdef Q_WS_X11
+#ifdef Q_OS_LINUX
     QString settingsDirPrefix = QDir::homePath() + "/.randomBackground/";
     if (!QDir().mkpath(settingsDirPrefix))
     {

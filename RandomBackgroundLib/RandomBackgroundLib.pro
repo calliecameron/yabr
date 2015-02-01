@@ -13,6 +13,7 @@ CONFIG(release, debug|release) {
 
 TEMPLATE = lib
 CONFIG += staticlib
+QT += widgets
 
 SOURCES += RandomBackgroundLib.cpp \
     RandBackImpl.cpp \
