@@ -113,7 +113,7 @@ QPushButton* DlgRecent::createButton(QString image, QString thumbnail, int w, in
         icon.load(thumbnail, "JPG");
 
     if (icon.isNull())
-        icon.load(":/WarningDull.png", "PNG");
+        icon.load(":/alert.png", "PNG");
 
     button->setIconSize(QSize(w, h));
     button->setIcon(icon);
