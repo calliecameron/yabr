@@ -25,24 +25,7 @@ DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::Window | Qt::WindowT
 {
     QApplication::setApplicationName("YABR: Yet Another (Desktop) Background Randomiser");
 
-#ifdef Q_OS_WIN
-    QString settingsDirPrefix = QApplication::applicationDirPath() + "/";
-#endif
-#ifdef Q_OS_LINUX
-    QString settingsDirPrefix = QDir::homePath() + "/.randomBackground/";
-    if (!QDir().mkpath(settingsDirPrefix))
-        QMessageBox::warning(0, QApplication::applicationName(), "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");
-#endif
-
     m_Lib = RandomBackgroundLib::init(
-                settingsDirPrefix + "Background.ini",
-                settingsDirPrefix + "Folders.txt",
-                settingsDirPrefix + "Excluded.txt",
-                settingsDirPrefix + "Blacklist.txt",
-                settingsDirPrefix + "RecentImages.txt",
-                settingsDirPrefix + "BackgroundResized.bmp",
-                settingsDirPrefix,
-                settingsDirPrefix + "RandomBackground.log",
                 &warnCallback,
                 &choiceCallback);
 

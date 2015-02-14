@@ -1,5 +1,4 @@
 #include <QApplication>
-#include <QDir>
 #include <QMessageBox>
 #include <RandomBackgroundLib.h>
 
@@ -13,29 +12,9 @@ int main(int argc, char** argv)
     QApplication app(argc, argv);
     QApplication::setApplicationName("YABR: Yet Another (Desktop) Background Randomiser");
 
-#ifdef Q_OS_WIN
-    QString settingsDirPrefix = QApplication::applicationDirPath() + "/";
-#endif
-#ifdef Q_OS_LINUX
-    QString settingsDirPrefix = QDir::homePath() + "/.randomBackground/";
-    if (!QDir().mkpath(settingsDirPrefix))
-    {
-        QMessageBox::critical(0, QApplication::applicationName(), "Unable to create the application's settings directory: '" + settingsDirPrefix + "'.");
-        return 1;
-    }
-#endif
-
     RandomBackgroundLib* lib = RandomBackgroundLib::init(
-            settingsDirPrefix + "Background.ini",
-            settingsDirPrefix + "Folders.txt",
-            settingsDirPrefix + "Excluded.txt",
-            settingsDirPrefix + "Blacklist.txt",
-            settingsDirPrefix + "RecentImages.txt",
-            settingsDirPrefix + "BackgroundResized.bmp",
-            settingsDirPrefix,
-            settingsDirPrefix + "RandomBackground.log",
-            &warnCallback,
-            &choiceCallback);
+                &warnCallback,
+                &choiceCallback);
 
 
     // Check command line - if the first parameter is -o (for 'override') change image randomly regardless

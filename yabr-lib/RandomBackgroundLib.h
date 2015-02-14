@@ -14,7 +14,7 @@ class RandomBackgroundLib
 {
 public:
 
-    static RandomBackgroundLib* init(QString settings, QString folders, QString excluded, QString blacklist, QString recentImages, QString resizeFile, QString thumbnailPath, QString logFile, WarnFunc warnFunc=0, ChoiceFunc choiceFunc=0);
+    static RandomBackgroundLib* init(WarnFunc warnFunc=0, ChoiceFunc choiceFunc=0);
     static RandomBackgroundLib* instance();
 
     virtual ~RandomBackgroundLib() {}
