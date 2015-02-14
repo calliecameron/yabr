@@ -23,7 +23,7 @@
 
 DlgConfig::DlgConfig(QWidget* parent) : QDialog(parent, Qt::Window | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint)
 {
-    QApplication::setApplicationName("Desktop Background Randomiser");
+    QApplication::setApplicationName("YABR: Yet Another (Desktop) Background Randomiser");
 
 #ifdef Q_OS_WIN
     QString settingsDirPrefix = QApplication::applicationDirPath() + "/";

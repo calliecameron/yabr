@@ -44,12 +44,12 @@ void sys::setRunAtStartup(bool b)
             QFile f(path);
             if (!f.open(QIODevice::WriteOnly | QIODevice::Text))
             {
-                QMessageBox::warning(0, "Desktop Background Randomiser", "Unable to open startup file for writing.");
+                QMessageBox::warning(0, "YABR: Yet Another (Desktop) Background Randomiser", "Unable to open startup file for writing.");
                 return;
             }
 
             f.write(STARTUP_SCRIPT_BEGIN);
-            f.write(qPrintable(QApplication::applicationDirPath() + "/RandomBackground"));
+            f.write(qPrintable(QApplication::applicationDirPath() + "/yabr"));
             f.write(STARTUP_SCRIPT_END);
 
             f.close();

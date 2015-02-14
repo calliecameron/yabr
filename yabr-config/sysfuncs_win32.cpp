@@ -41,7 +41,7 @@ bool sys::getRunAtStartup()
     {
         QString temp = reg.value(KEY_RANDBACK).toString();
 
-        if (QDir::fromNativeSeparators(temp).compare(qApp->applicationDirPath() + "/RandomBackground.exe", Qt::CaseInsensitive) != 0)
+        if (QDir::fromNativeSeparators(temp).compare(qApp->applicationDirPath() + "/yabr.exe", Qt::CaseInsensitive) != 0)
         {
             if (QMessageBox::warning(0, qApp->applicationName(), "A copy of Desktop Background Randomiser is enabled on this computer, but at a different location from this copy. Do you want to make this version run at startup?\n(If unsure, click No, but bear in mind that any changes made in this copy will not affect the enabled copy.)\nPath: " + temp, QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
             {
@@ -65,7 +65,7 @@ void sys::setRunAtStartup(bool b)
     QSettings reg(KEY_RUN, QSettings::NativeFormat);
 
     if (b)
-        reg.setValue(KEY_RANDBACK, QDir::toNativeSeparators(qApp->applicationDirPath() + "/RandomBackground.exe"));
+        reg.setValue(KEY_RANDBACK, QDir::toNativeSeparators(qApp->applicationDirPath() + "/yabr.exe"));
     else
     {
         if (reg.contains(KEY_RANDBACK))

@@ -5,4 +5,4 @@ Version.h
 
 
 
-If it fails to build on Windows, it is because the build directories have paths that are too long. Change them and try again.
+If it fails to build on Windows using Qt Creator, it is because the build directories have paths that are too long. Change them and try again.

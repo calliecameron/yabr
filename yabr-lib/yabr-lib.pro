@@ -1,14 +1,8 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2011-06-04T13:08:37
-#
-#-------------------------------------------------
-
 CONFIG(debug, debug|release) {
-    TARGET = RandomBackgroundLibD
+    TARGET = yabr-libD
 }
 CONFIG(release, debug|release) {
-    TARGET = RandomBackgroundLib
+    TARGET = yabr-lib
 }
 
 TEMPLATE = lib

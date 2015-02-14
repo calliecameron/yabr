@@ -11,7 +11,7 @@ bool choiceCallback(QString str);
 int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
-    QApplication::setApplicationName("Desktop Background Randomiser");
+    QApplication::setApplicationName("YABR: Yet Another (Desktop) Background Randomiser");
 
 #ifdef Q_OS_WIN
     QString settingsDirPrefix = QApplication::applicationDirPath() + "/";

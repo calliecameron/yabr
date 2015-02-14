@@ -5,3 +5,4 @@ Makefile
 *.a
 qrc_*.cpp
 moc_*.cpp
+bin
