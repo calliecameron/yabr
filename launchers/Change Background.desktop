@@ -1,0 +1,10 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name[en_GB]=Change Background
+Exec=yabr -o
+Comment[en_GB]=Change the desktop background now using YABR
+Name=Change Background
+Comment=Change the desktop background now using YABR
