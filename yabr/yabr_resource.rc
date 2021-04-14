@@ -23,12 +23,12 @@ VS_VERSION_INFO VERSIONINFO
         BEGIN
             BLOCK "080904b0"
             BEGIN
-                VALUE "Comments", "Created By Callum J. Cameron " WIN_RC_APP_DATE
-                VALUE "CompanyName", "Callum J. Cameron"
+                VALUE "Comments", "Created By Callie Cameron " WIN_RC_APP_DATE
+                VALUE "CompanyName", "Callie Cameron"
                 VALUE "FileDescription", "YABR: Yet Another (Desktop) Background Randomiser"
                 VALUE "FileVersion", DEFAULT_APP_VER
                 VALUE "InternalName", "YABR: Yet Another (Desktop) Background Randomiser"
-                VALUE "LegalCopyright", "Copyright © Callum J. Cameron " WIN_RC_APP_YEAR
+                VALUE "LegalCopyright", "Copyright © Callie Cameron " WIN_RC_APP_YEAR
                 VALUE "LegalTrademarks", ""
                 VALUE "OriginalFilename", "yabr.exe"
                 VALUE "PrivateBuild", ""
