@@ -5,4 +5,6 @@ Makefile
 *.a
 qrc_*.cpp
 moc_*.cpp
+moc_*.h
 bin
+.qmake.stash
